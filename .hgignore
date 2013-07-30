@@ -1,0 +1,14 @@
+syntax: regexp
+\.pyc$
+\.hgignore~
+\.gitignore~
+\.git/
+
+^example/media/external_images/
+^example/db/example.db
+^example/tmp/
+^builddocs/
+^builddocs.zip
+^build/
+^dist/
+^src/eximagination.egg-info

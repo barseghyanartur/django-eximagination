@@ -1,0 +1,14 @@
+*.py[cod]
+.hgignore~
+.gitignore~
+.hg/
+
+example/media/external_images/
+example/db/example.db
+example/tmp/
+builddocs/
+builddocs.zip
+build/
+dist/
+src/eximagination.egg-info
+
