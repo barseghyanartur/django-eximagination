@@ -24,3 +24,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = PROJECT_DIR('../tmp')
 
 DEFAULT_FROM_EMAIL = '<no-reply@example.com>'
+
+# eximagination conf follows...
+
+# For testing purposes, files exlire after 10 seconds. Set something like 30 days (2592000) in production
+EXIMAGINATION_EXPIRATION_INTERVAL = 10
+
+# Make sure to set this to False in production.
+EXIMAGINATION_DEBUG = True

@@ -136,7 +136,6 @@ INSTALLED_APPS = (
 EXIMAGINATION_MEDIA_ROOT = PROJECT_DIR('../media/external_images/')
 EXIMAGINATION_MEDIA_URL = '/media/external_images'
 EXIMAGINATION_MEDIA_RELATIVE_ROOT = 'external_images/'
-EXIMAGINATION_DEBUG = True
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

@@ -1,6 +1,6 @@
 __title__ = 'eximagination.utils'
-__version__ = '0.5'
-__build__ = 0x000005
+__version__ = '0.6'
+__build__ = 0x000006
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __all__ = ('_obtain_image',)
 
@@ -10,6 +10,9 @@ import hashlib
 from PIL import Image
 import StringIO
 import glob
+import time
+
+from eximagination.settings import EXPIRATION_INTERVAL, DEBUG
 
 def _obtain_image(image_source='', save_to='', media_url='', force_update=False):
     """
@@ -24,14 +27,23 @@ def _obtain_image(image_source='', save_to='', media_url='', force_update=False)
     :return list: (relative_url_of_the_image, original_image_width, original_image_height)
     """
     # First we check if any image with such name (without extention) exists in our local external images directory.
+    expired = False
     try:
         filename = os.path.basename(glob.glob(os.path.join(save_to, hashlib.md5(image_source).hexdigest()) + '.*')[0])
-        im = Image.open(os.path.join(save_to, filename)) # Feed the image to PIL to get width and height
-        return (os.path.join(media_url, filename), im.size[0], im.size[1])
-    except:
+
+        # Expiration interval check.
+        full_path = os.path.join(save_to, filename)
+        last_modified = os.path.getmtime(full_path)
+        if time.time() - last_modified > EXPIRATION_INTERVAL:
+            expired = True
+
+        if not expired:
+            im = Image.open(full_path) # Feed the image to PIL to get width and height
+            return (os.path.join(media_url, filename), im.size[0], im.size[1])
+    except Exception, e:
         pass
 
-    # If nothing was found in local directory - we try to load it and save it.
+    # If nothing was found in local directory (or perhaps file expired) - we try to load it and save it.
     try:
         # Loading the file of unknown type into memory. We don't save the image locally before it's validated.
         opener = urllib2.build_opener()
@@ -48,7 +60,7 @@ def _obtain_image(image_source='', save_to='', media_url='', force_update=False)
 
         # If filename already exists - returning the filename
         filename_full_path = os.path.join(save_to, filename)
-        if os.path.exists(filename_full_path) and os.path.isfile(filename_full_path) and not force_update:
+        if os.path.exists(filename_full_path) and os.path.isfile(filename_full_path) and not (force_update or expired):
             return (os.path.join(media_url, filename), im.size[0], im.size[1])
 
         # Open file for binary write and save the image.

@@ -41,7 +41,7 @@ applicable) has rights to write into it.
 >>> EXIMAGINATION_MEDIA_ROOT = PROJECT_DIR('media/external_images/')
 >>> EXIMAGINATION_MEDIA_URL = '/media/external_images'
 >>> EXIMAGINATION_MEDIA_RELATIVE_ROOT = 'external_images/'
->>> EXIMAGINATION_DEBUG = True
+>>> EXIMAGINATION_EXPIRATION_INTERVAL = 2592000 # After 30 days we re-fetch the file anyway.
 
 Usage example (in a Django template)
 =======================================
