@@ -6,7 +6,7 @@ try:
 except:
     readme = ''
 
-version = '0.6'
+version = '0.7'
 
 setup(
     name = 'eximagination',
@@ -16,9 +16,14 @@ setup(
     classifiers = [
         "Framework :: Django",
         "Programming Language :: Python",
+        "Programming Language :: Python :: 2.6",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.3",
+        "Development Status :: 4 - Beta",
         "Environment :: Web Environment",
-        'Intended Audience :: Developers',
-        'Operating System :: OS Independent',
+        "Intended Audience :: Developers",
+        "Operating System :: OS Independent",
     ],
     keywords = 'eximagination, django, external images, app, python',
     author = 'Artur Barseghyan',
@@ -27,4 +32,8 @@ setup(
     package_dir = {'':'src'},
     packages = find_packages(where='./src'),
     license = 'GPL 2.0/LGPL 2.1',
+    install_requires = [
+        'six==1.4.1',
+        'Pillow==2.2.1'
+    ]
 )

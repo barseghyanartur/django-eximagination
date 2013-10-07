@@ -127,8 +127,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'sorl.thumbnail', # thumbnail generator
-
     'eximagination',
 )
 

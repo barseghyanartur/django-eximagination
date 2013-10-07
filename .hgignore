@@ -12,3 +12,5 @@ syntax: regexp
 ^build/
 ^dist/
 ^src/eximagination.egg-info
+^src/eximagination/tmp/
+^\.tox/

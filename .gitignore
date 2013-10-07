@@ -11,4 +11,5 @@ builddocs.zip
 build/
 dist/
 src/eximagination.egg-info
-
+src/eximagination/tmp/
+.tox/

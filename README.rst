@@ -1,13 +1,17 @@
 =======================================
 eximagination
 =======================================
+A Django template tag library which allows downloading of external images right from the template and save it
+into a desired context variable along with `width` and `height` of the image fetched. Caches the fetched images
+locally.
 
-Description
-=======================================
-A Django template tag library which allows downloading of external images right from the template and save it into a
-desired context variable along with `width` and `height` of the image fetched. Caches the fetched images locally.
-You could, for example, use this app to solve the problems with displaying of a mixed content (assets loaded from HTTP and HTTPS
-sources).
+You could, for example, use this app to solve the problems with displaying of a mixed content (assets loaded
+from HTTP and HTTPS sources).
+
+Prerequisites
+===================================
+- Django 1.5.+
+- Python 2.6.8+, 2.7.+, 3.3.+
 
 Installation
 =======================================
@@ -17,9 +21,13 @@ Latest stable version on PyPI:
 
     $ pip install eximagination
 
-Latest development version from source:
+Latest stable version from bitbucket:
 
-    $ pip install -e hg+http://bitbucket.org/barseghyanartur/eximagination@dev#egg=eximagination
+    $ pip install -e hg+http://bitbucket.org/barseghyanartur/eximagination@stable#egg=eximagination
+
+Latest stable version from github:
+
+    $ pip install -e git+https://github.com/barseghyanartur/eximagination/@stable#egg=eximagination
 
 2. Add 'eximagination' to `INSTALLED_APPS`
 
@@ -61,9 +69,9 @@ or
 
 In both cases there are two additional context variables added:
 
-    `ei_width` - Width of the image
+    ``ei_width`` - Width of the image
 
-    `ei_height` - Height of the image
+    ``ei_height`` - Height of the image
 
 License
 =======================================

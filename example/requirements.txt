@@ -1,14 +1,7 @@
-Django==1.5.1
-Jinja2==2.7
-MarkupSafe==0.18
-Pillow==2.1.0
-Pygments==1.6
-Sphinx==1.2b1
-argparse==1.2.1
-django-debug-toolbar==0.9.4
-docutils==0.10
-eximagination==0.5
-ipdb==0.7
-ipython==0.13.2
-sorl-thumbnail==3.2.5
-wsgiref==0.1.2
+Django==1.5.4
+Pillow==2.2.1
+selenium==2.35.0
+six==1.4.1
+tox==1.6.1
+
+-e hg+http://bitbucket.org/barseghyanartur/eximagination@stable#egg=eximagination

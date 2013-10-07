@@ -1,13 +1,13 @@
 __title__ = 'eximagination.templatetags.eximaginate'
-__version__ = '0.6'
-__build__ = 0x000006
+__version__ = '0.7'
+__build__ = 0x000007
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __all__ = ('eximaginate',)
 
 from django import template
 
-from eximagination.utils import _obtain_image
-from eximagination.settings import MEDIA_ROOT, MEDIA_RELATIVE_ROOT
+from eximagination.utils import obtain_image
+from eximagination.settings import MEDIA_ROOT, MEDIA_RELATIVE_ROOT, EXPIRATION_INTERVAL, DEBUG
 
 register = template.Library()
 
@@ -16,7 +16,7 @@ class EximaginateNode(template.Node):
     :example:
     {% eximaginate photo as image %}
     {{ image }}
-    :note: Eximagination will automatically add `ei_width` and `ei_height` variables to the content -
+    :note: Eximagination will automatically add ``ei_width`` and ``ei_height`` variables to the content -
         those are the original width and height values of the obtained image.
     """
     def __init__(self, source_var, force_update, context_name=None):
@@ -28,10 +28,14 @@ class EximaginateNode(template.Node):
         # Note that this isn't a global constant because we need to change the
         # value for tests.
         try:
-            file_data = _obtain_image(image_source=self.source_var.resolve(context),
-                                      save_to=MEDIA_ROOT,
-                                      media_url=MEDIA_RELATIVE_ROOT,
-                                      force_update=self.force_update)
+            file_data = obtain_image(
+                image_source = self.source_var.resolve(context),
+                save_to = MEDIA_ROOT,
+                media_url = MEDIA_RELATIVE_ROOT,
+                force_update = self.force_update,
+                expiration_interval = EXPIRATION_INTERVAL,
+                debug = DEBUG
+                )
             filename = file_data[0]
             context['ei_width'] = file_data[1] # Original width of the obtained image
             context['ei_height'] = file_data[2] # Original height of the obtained image
@@ -75,7 +79,7 @@ def eximaginate(parser, token):
     # Check to see if we're setting to a context variable.
 
     if len(arguments) < 1:
-        raise template.TemplateSyntaxError, "%r tag requires at least one argument" % token.contents.split()[0]
+        raise template.TemplateSyntaxError("{0} tag requires at least one argument".format(token.contents.split()[0]))
 
     # Get arguments
     if 4 == len(arguments):
@@ -87,7 +91,7 @@ def eximaginate(parser, token):
         force_update = False # At the moment force_update is not implemented
         context_name = None
     else:
-        raise template.TemplateSyntaxError, "%r wrong number arguments" % token.contents.split()[0]
+        raise template.TemplateSyntaxError("{0} wrong number arguments".format(token.contents.split()[0]))
 
     # If the size argument was a correct static format, wrap it in quotes so
     # that it is compiled correctly.

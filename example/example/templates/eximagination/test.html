@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load eximaginate thumbnail %}
+{% load eximaginate %}{# thumbnail #}
 
 {% block page-title %}Test{% endblock page-title %}
 
@@ -7,13 +7,14 @@
 <h1>Tests</h1>
 <h2>Test 1</h2>
 <p>
-    <img src="{{ MEDIA_URL }}{% eximaginate 'http://www.google.com/intl/en/images/logo.gif' %}" alt="test 1 image" />
+    <img src="{{ MEDIA_URL }}{% eximaginate 'http://www.google.com/intl/en/images/logo.gif' %}" alt="test 1 image" id="image1"/>
 </p>
 
 <h2>Test 2</h2>
 <p>
     {% eximaginate 'http://www.google.com/intl/en/images/logo.gif' as original %}
-    <img src="{% thumbnail original 100x100 %}" alt="test 2 image"/>
+    <img src="{{ MEDIA_URL }}{{ original }}" alt="test 2 image" id="image2"/>
+    {#<img src="{% thumbnail original 100x100 %}" alt="test 2 image" id="image2"/>#}
 </p>
 <p><small>Original image width: {{ ei_width }}</small></p>
 <p><small>Original image height: {{ ei_height }}</small></p>

@@ -1,6 +1,6 @@
 __title__ = 'eximagination.defaults'
-__version__ = '0.6'
-__build__ = 0x000006
+__version__ = '0.7'
+__build__ = 0x000007
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __all__ = ('MEDIA_ROOT', 'MEDIA_URL', 'MEDIA_RELATIVE_ROOT', 'EXPIRATION_INTERVAL', 'DEBUG')
 
