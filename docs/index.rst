@@ -43,7 +43,7 @@ Latest stable version from GitHub:
 
 3. Configure
 
-By default, eximagination expects your files to be stored in
+By default, ``django-eximagination`` expects your files to be stored in
 ``/media/external_images`` directory. If location varies, redefine the
 directories in your Django settings, make sure the path is writable and that
 www-data (or whatever is applicable) has rights to write into it.
@@ -63,8 +63,8 @@ www-data (or whatever is applicable) has rights to write into it.
 Usage example (in a Django template)
 ====================================
 See the `example directory
-<https://bitbucket.org/barseghyanartur/eximagination/src>`_ for working code
-example.
+<https://bitbucket.org/barseghyanartur/django-eximagination/src>`_ for working
+code example.
 
 Example #1:
 
@@ -101,3 +101,22 @@ an issue on BitBucket/GitHub.
 Author
 ======
 Artur Barseghyan <artur.barseghyan@gmail.com>
+
+Documentation
+=============
+Contents:
+
+.. contents:: Table of Contents
+
+.. toctree::
+   :maxdepth: 20
+
+   eximagination
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
