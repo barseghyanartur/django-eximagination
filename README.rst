@@ -1,10 +1,13 @@
 ====================
 django-eximagination
 ====================
+Fetch external images directly from templates.
+
 A Django template tag library which allows to download external images, store
 them locally and return the local path to locally stored image to a desired
-context variable, along with ``width`` and ``height`` of the image fetched.
-Caches the fetched images locally for the given time (set in settings).
+context variable, along with ``width`` and ``height`` attributes of the image
+fetched. Caches the fetched images locally for the given time (set in
+settings).
 
 You could, for example, use this app to solve the problems with displaying of
 a mixed content (assets loaded from HTTP and HTTPS sources).
@@ -16,13 +19,13 @@ Prerequisites
 
 Installation
 ============
-1. Install ``eximagination``
+1. Install ``django-eximagination``
 
 Latest stable version on PyPI:
 
 .. code-block:: sh
 
-    pip install eximagination
+    pip install django-eximagination
 
 Latest stable version from GitHub:
 
