@@ -1,0 +1,2 @@
+reset
+pylint examples/simple/

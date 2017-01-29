@@ -1,39 +1,32 @@
-__title__ = 'eximagination.conf'
-__version__ = '0.7'
-__build__ = 0x000007
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__all__ = ('get_setting',)
-
 from django.conf import settings
 
-from eximagination import defaults
+from . import defaults
+
+__title__ = 'eximagination.conf'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2013-2017 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('get_setting',)
+
 
 def get_setting(setting, override=None):
-    """
-    Get a setting from eximagination conf module, falling back to the default.
+    """Get setting.
+
+    Get a setting from ``eximagination`` conf module, falling back to
+    the default.
 
     If override is not None, it will be used instead of the setting.
 
-    There are some app settings you may want to override. You can override any of the following default settings in
-    your project settings module:
-
-        `MEDIA_ROOT`
-
-        `MEDIA_URL`
-
-        `MEDIA_RELATIVE_ROOT`
-
-    :param str setting: Name of the setting.
-    :param override: Default value
-    :return: Desired setting value
-
-    :example:
-    >>> from eximagination.conf import get_setting
-    >>> MEDIA_ROOT = get_setting('MEDIA_ROOT')
+    :param setting: String with setting name
+    :param override: Value to use when no setting is available. Defaults to
+        None.
+    :return: Setting value.
     """
-    if override is not None:
-        return override
-    if hasattr(settings, 'EXIMAGINATION_%s' % setting):
-        return getattr(settings, 'EXIMAGINATION_%s' % setting)
+    attr_name = 'EXIMAGINATION_{0}'.format(setting)
+    if hasattr(settings, attr_name):
+        return getattr(settings, attr_name)
     else:
-        return getattr(defaults, setting)
+        if hasattr(defaults, setting):
+            return getattr(defaults, setting)
+        else:
+            return override

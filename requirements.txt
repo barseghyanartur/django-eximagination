@@ -1,2 +1,1 @@
-urllib2
-PIL>=1.1.7
+-r examples/requirements/django_1_8.txt

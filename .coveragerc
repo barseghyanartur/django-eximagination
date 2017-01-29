@@ -1,0 +1,5 @@
+[run]
+omit =
+    src/eximagination/tests/*
+    example/simple/settings/*
+    example/simple/wsgi.py

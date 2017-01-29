@@ -1,24 +1,22 @@
 from __future__ import print_function
 
-__title__ = 'eximagination.utils'
-__version__ = '0.7'
-__build__ = 0x000007
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-
-import unittest
 import os
+import unittest
 
-PROJECT_DIR = lambda base : os.path.join(os.path.dirname(__file__), base).replace('\\','/')
+from . import obtain_image
+from .helpers import project_dir
 
-from eximagination import obtain_image
+__title__ = 'eximagination.tests'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2013-2017 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
 
-PRINT_INFO = True
+LOG_INFO = True
 
-def print_info(func):
-    """
-    Prints some useful info.
-    """
-    if not PRINT_INFO:
+
+def log_info(func):
+    """Log some useful info."""
+    if not LOG_INFO:
         return func
 
     def inner(self, *args, **kwargs):
@@ -36,47 +34,47 @@ def print_info(func):
         return result
     return inner
 
+
 class EximaginationUtilsTest(unittest.TestCase):
-    """
-    Tests of ``eximagination.utils.obtain_image`` function.
-    """
+    """Tests of ``eximagination.utils.obtain_image`` function."""
+
     def setUp(self):
+        """Set up."""
         self.image_url = 'http://www.google.com/intl/en/images/logo.gif'
         self.force_update = False
-        
-        self.MEDIA_ROOT = PROJECT_DIR('tmp') # Where eximagination cached images will be stored
-        self.MEDIA_URL = '/tmp/' # Media URL for stored images
-        self.MEDIA_RELATIVE_ROOT = 'tmp/' # Relative root for images
-        self.EXPIRATION_INTERVAL = 2592000 # After 30 days we re-fetch the file anyway.
-        self.DEBUG = True
+
+        # Where eximagination cached images will be stored
+        self.media_root = project_dir('tmp')
+        self.media_url = '/tmp/'  # Media URL for stored images
+        self.media_relative_root = 'tmp/'  # Relative root for images
+        # After 30 days we re-fetch the file anyway.
+        self.expiration_interval = 2592000
+        self.debug = True
 
         try:
-            os.stat(self.MEDIA_ROOT)
+            os.stat(self.media_root)
         except:
-            os.mkdir(self.MEDIA_ROOT)
+            os.mkdir(self.media_root)
 
-    @print_info
+    @log_info
     def test_01_obtain_image(self):
-        """
-        Test obtain image.
-        """
-        #import ipdb; ipdb.set_trace()
+        """Test obtain image."""
         file_data = obtain_image(
-            image_source = self.image_url,
-            save_to = self.MEDIA_ROOT,
-            media_url = self.MEDIA_RELATIVE_ROOT,
-            force_update = self.force_update,
-            expiration_interval = self.EXPIRATION_INTERVAL,
-            debug = self.DEBUG
-            )
+            image_source=self.image_url,
+            save_to=self.media_root,
+            media_url=self.media_relative_root,
+            force_update=self.force_update,
+            expiration_interval=self.expiration_interval,
+            debug=self.debug
+        )
 
         try:
             filename = file_data[0]
-            ei_width = file_data[1] # Original width of the obtained image
-            ei_height = file_data[2] # Original height of the obtained image
-        except Exception as e:
+            ei_width = file_data[1]  # Original width of the obtained image
+            ei_height = file_data[2]  # Original height of the obtained image
+        except Exception as err:
             print(file_data)
-            print(e)
+            print(err)
             filename = None
             ei_width = None
             ei_height = None
@@ -93,31 +91,56 @@ class EximaginationUtilsTest(unittest.TestCase):
 
         return res
 
+
 # Skipping from non-Django tests.
 if os.environ.get("DJANGO_SETTINGS_MODULE", None):
+    from django.conf import settings
     from django.test import LiveServerTestCase
+    from django.core.management import call_command
 
-    from selenium.webdriver.firefox.webdriver import WebDriver
+    from selenium import webdriver
+    from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
-    class EximaginationTemplatetagsTest(LiveServerTestCase): #unittest.TestCase
-        """
-        Tests of ``exinagination.templatetags.eximaginate`` module.
-        """
+    class EximaginationTemplatetagsTest(LiveServerTestCase):
+        """Tests of ``exinagination.templatetags.eximaginate`` module."""
+
         @classmethod
         def setUpClass(cls):
-            cls.selenium = WebDriver()
+            """Set up."""
+            firefox_bin_path = getattr(settings, 'FIREFOX_BIN_PATH', None)
+            phantom_js_executable_path = getattr(
+                settings, 'PHANTOM_JS_EXECUTABLE_PATH', None
+            )
+            if phantom_js_executable_path is not None:
+                if phantom_js_executable_path:
+                    cls.selenium = webdriver.PhantomJS(
+                        executable_path=phantom_js_executable_path
+                    )
+                else:
+                    cls.selenium = webdriver.PhantomJS()
+            elif firefox_bin_path:
+                binary = FirefoxBinary(firefox_bin_path)
+                cls.selenium = webdriver.Firefox(firefox_binary=binary)
+            else:
+                cls.selenium = webdriver.Firefox()
             super(EximaginationTemplatetagsTest, cls).setUpClass()
 
         @classmethod
         def tearDownClass(cls):
-            cls.selenium.quit()
+            """Tear down."""
+            try:
+                cls.selenium.quit()
+            except Exception as err:
+                print(err)
             super(EximaginationTemplatetagsTest, cls).tearDownClass()
+            call_command('flush', verbosity=0, interactive=False,
+                         reset_sequences=False,
+                         allow_cascade=False,
+                         inhibit_post_migrate=False)
 
-        @print_info
+        @log_info
         def test_templatetags(self):
-            """
-            Test template tags.
-            """
+            """Test template tags."""
             workflow = []
 
             self.selenium.get(self.live_server_url)

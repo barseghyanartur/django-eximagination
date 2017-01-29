@@ -1,16 +1,23 @@
 syntax: regexp
 \.pyc$
-\.hgignore~
-\.gitignore~
-\.git/
+^\.hgignore~
+^\.gitignore~
+^\.git/
 
-^example/media/external_images/
-^example/db/example.db
-^example/tmp/
+^examples/media/external_images/
+^examples/db/example\.db
+^examples/tmp/
+^examples/logs/
+^examples/static/
 ^builddocs/
 ^builddocs.zip
 ^build/
 ^dist/
-^src/eximagination.egg-info
+^src/django_eximagination\.egg-info
+^src/eximagination\.egg-info
 ^src/eximagination/tmp/
 ^\.tox/
+^htmlcov/
+\.py,cover
+^\.cache/
+\.coverage$
