@@ -89,6 +89,32 @@ In both cases there are two additional context variables added:
 - ``ei_width`` - Width of the image
 - ``ei_height`` - Height of the image
 
+Testing
+=======
+Simply type:
+
+.. code-block:: sh
+
+    ./runtests.py
+
+or use tox:
+
+.. code-block:: sh
+
+    tox
+
+or use tox to check specific env:
+
+.. code-block:: sh
+
+    tox -e py35
+
+or run Django tests:
+
+.. code-block:: sh
+
+    ./manage.py test eximagination --settings=settings.testing
+
 License
 =======
 GPL 2.0/LGPL 2.1
