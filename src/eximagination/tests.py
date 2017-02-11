@@ -53,7 +53,7 @@ class EximaginationUtilsTest(unittest.TestCase):
 
         try:
             os.stat(self.media_root)
-        except:
+        except Exception:
             os.mkdir(self.media_root)
 
     @log_info

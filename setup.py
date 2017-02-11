@@ -6,7 +6,7 @@ try:
 except:
     readme = ''
 
-version = '0.8'
+version = '0.8.1'
 
 setup(
     name='django-eximagination',
@@ -23,6 +23,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
         "Development Status :: 4 - Beta",
         "Environment :: Web Environment",
         "Intended Audience :: Developers",

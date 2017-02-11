@@ -57,7 +57,7 @@ class EximaginateNode(template.Node):
             # We need to get here so we don't have old values in the context
             # variable.
             context[self.context_name] = filename
-        except:
+        except Exception:
             pass
 
         return ''
