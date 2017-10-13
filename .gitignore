@@ -2,6 +2,7 @@
 .hgignore~
 .gitignore~
 .hg/
+.idea/
 
 /examples/media/external_images/
 /examples/db/example.db
