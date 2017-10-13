@@ -1,3 +1,4 @@
+from __future__ import absolute_import, unicode_literals
 import os
 import hashlib
 import glob
@@ -15,7 +16,15 @@ __title__ = 'eximagination.utils'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('obtain_image',)
+__all__ = (
+    'get_new_image_filename',
+    'obtain_image',
+)
+
+
+def get_new_image_filename(image_source):
+    """Get new image filename."""
+    return hashlib.md5(image_source).hexdigest()
 
 
 def obtain_image(image_source='', save_to='', media_url='',
@@ -44,7 +53,7 @@ def obtain_image(image_source='', save_to='', media_url='',
             glob.glob(
                 os.path.join(
                     save_to,
-                    hashlib.md5(image_source).hexdigest()
+                    get_new_image_filename(image_source)
                 ) + '.*'
             )[0]
         )

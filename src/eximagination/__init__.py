@@ -12,8 +12,8 @@ content (assets loaded from HTTP and HTTPS sources).
 from .utils import obtain_image
 
 __title__ = 'eximagination'
-__version__ = '0.8.2'
-__build__ = 0x00000a
+__version__ = '0.8.3'
+__build__ = 0x00000b
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'

@@ -15,6 +15,18 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.8.3
+-----
+2017-10-14
+
+- Added ``get_new_image_filename`` for getting the filename of the image to
+  created.
+
+0.8.2
+-----
+2017-10-14
+- Added Exceptions.
+
 0.8.1
 -----
 2017-01-29
